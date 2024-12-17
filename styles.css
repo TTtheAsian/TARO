@@ -1,0 +1,661 @@
+:root {
+    --primary-color: #2c1810;
+    --secondary-color: #8b4513;
+    --accent-color: #ffd700;
+    --background-dark: #1a1a2e;
+    --background-light: #16213e;
+    --text-color: #ffffff;
+    --text-secondary: #e0e0e0;
+    --card-bg: rgba(255,255,255,0.1);
+    --card-border: rgba(255,255,255,0.3);
+}
+
+body {
+    font-family: 'Times New Roman', serif;
+    text-align: center;
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--background-dark), var(--background-light));
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 修改星空效果 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        /* 大星星 */
+        radial-gradient(white, rgba(255,255,255,.5) 3px, transparent 6px),
+        /* 中星星 */
+        radial-gradient(rgba(255,215,0,.6), rgba(255,215,0,.3) 2px, transparent 4px),
+        /* 小星星 */
+        radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.2) 1px, transparent 3px);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    background-position: 0 0, 40px 60px, 130px 270px;
+    animation: starTwinkle 4s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* 增強星雲效果 */
+body::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150vmax;
+    height: 150vmax;
+    background: 
+        radial-gradient(circle at 30% 40%, 
+            rgba(103, 58, 183, 0.4) 0%,
+            rgba(81, 45, 168, 0.3) 30%,
+            transparent 70%),
+        radial-gradient(circle at 70% 60%, 
+            rgba(147, 112, 219, 0.4) 0%,
+            rgba(138, 43, 226, 0.3) 30%,
+            transparent 70%);
+    animation: nebulaRotate 30s ease-in-out infinite alternate;
+    z-index: -2;
+}
+
+/* 修改星星閃爍動畫 */
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 0.3;
+        background-size: 550px 550px, 350px 350px, 250px 250px;
+    }
+    25% {
+        opacity: 0.8;
+        background-size: 560px 560px, 360px 360px, 260px 260px;
+    }
+    50% {
+        opacity: 1;
+        background-size: 570px 570px, 370px 370px, 270px 270px;
+    }
+    75% {
+        opacity: 0.8;
+        background-size: 560px 560px, 360px 360px, 260px 260px;
+    }
+}
+
+/* 修改星雲旋轉動畫 */
+@keyframes nebulaRotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+        opacity: 0.5;
+    }
+    33% {
+        transform: translate(-50%, -50%) rotate(120deg) scale(1.1);
+        opacity: 0.7;
+    }
+    66% {
+        transform: translate(-50%, -50%) rotate(240deg) scale(1.2);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+        opacity: 0.5;
+    }
+}
+
+.question-section {
+    max-width: 600px;
+    margin: 0 auto 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    padding: 15px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    resize: none;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-color);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+button {
+    background: linear-gradient(135deg, #6a3093, #a044ff);
+    color: var(--text-color);
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #a044ff, #6a3093);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 15px rgba(160,68,255,0.4);
+}
+
+#card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px auto;
+}
+
+.card {
+    width: 80px;
+    height: 120px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    contain: layout style paint;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.result {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.card-result {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    margin: 10px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    color: var(--text-color);
+}
+
+.card-result h3 {
+    color: var(--accent-color);
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255,215,0,0.3);
+}
+
+.card-result img {
+    max-width: 80px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.card-result .meaning,
+.card-result .interpretation {
+    font-size: 14px;
+    margin: 8px 0;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 100px;
+        height: 150px;
+    }
+    
+    .card-result img {
+        max-width: 150px;
+    }
+} 
+
+/* 線性牌陣布局 */
+.linear-spread {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px auto;
+}
+
+/* 凱爾特十字牌陣布局 */
+.celtic-cross {
+    display: grid;
+    grid-template-areas:
+        ".    .     pos5  .     ."
+        ".    pos3  pos1  pos6  ."
+        ".    .     pos2  .     ."
+        ".    .     pos4  .     ."
+        "pos7 pos8  pos9  pos10 .";
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.celtic-cross .card {
+    margin: 0;
+}
+
+/* 凱爾特十字牌陣位置樣式 */
+.celtic-cross .position-0 { grid-area: pos1; }
+.celtic-cross .position-1 { grid-area: pos2; }
+.celtic-cross .position-2 { grid-area: pos3; }
+.celtic-cross .position-3 { grid-area: pos4; }
+.celtic-cross .position-4 { grid-area: pos5; }
+.celtic-cross .position-5 { grid-area: pos6; }
+.celtic-cross .position-6 { grid-area: pos7; }
+.celtic-cross .position-7 { grid-area: pos8; }
+.celtic-cross .position-8 { grid-area: pos9; }
+.celtic-cross .position-9 { grid-area: pos10; }
+
+/* 牌陣選擇下拉���單樣式 */
+#spread-type {
+    margin-left: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--secondary-color);
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-color);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+} 
+
+/* 添加新按鈕樣式 */
+#reset-reading,
+#help-button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#reset-reading:hover,
+#help-button:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* 添加牌陣說明樣式 */
+.spread-info {
+    margin: 20px auto;
+    padding: 15px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 8px;
+    max-width: 600px;
+    font-size: 14px;
+    line-height: 1.6;
+} 
+
+.card.flipping {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.card-front {
+    transform: rotateY(180deg);
+} 
+
+/* 移除音效相關樣 */
+#sound-toggle {
+    display: none;
+}
+
+/* 發牌動畫 */
+.card.dealing {
+    opacity: 0;
+    transform: translate(-100vw, -100vh) rotate(-360deg);
+    transition: all 0.5s ease-out;
+    will-change: transform, opacity;
+}
+
+/* 翻牌動畫 */
+.card {
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease-in-out;
+}
+
+.card.flipping {
+    transform: rotateY(180deg);
+}
+
+/* 優化卡牌懸浮效果 */
+.card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* 已抽取的卡牌效果 */
+.card.drawn {
+    cursor: default;
+}
+
+.card.drawn:hover {
+    transform: none;
+}
+
+/* 優化結果顯示動畫 */
+.card-result {
+    animation: slideIn 0.5s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(-5px) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 添加結果卡片懸浮效果 */
+.card-result:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
+}
+
+/* 凱爾特十字牌陣的特殊動畫 */
+.celtic-cross .card {
+    transition: all 0.5s ease-out;
+}
+
+.celtic-cross .card.dealing {
+    transform: translate(-50vw, -50vh) rotate(-720deg);
+} 
+
+/* 添加廣告空間樣式 */
+.ad-space {
+    width: 100%;
+    max-width: 728px;
+    height: 90px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(5px);
+    border: 2px dashed rgba(255,255,255,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+/* 側邊廣告空間 */
+.ad-sidebar {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 160px;
+    height: 600px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(5px);
+    border: 2px dashed rgba(255,255,255,0.2);
+    display: none; /* 在小螢幕上隱藏 */
+}
+
+.ad-sidebar.left {
+    left: 10px;
+}
+
+.ad-sidebar.right {
+    right: 10px;
+}
+
+/* 主要內容區域調整 */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 180px; /* 為側邊廣告留出空間 */
+}
+
+/* 響應式設計 */
+@media (min-width: 1400px) {
+    .ad-sidebar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 1399px) {
+    .main-content {
+        padding: 0 20px;
+    }
+} 
+
+/* 添加動畫效果 */
+@keyframes twinkle {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+@keyframes rotate {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+} 
+
+/* 添加卡牌光暈效果 */
+.card::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: linear-gradient(45deg, 
+        rgba(255,215,0,0) 0%,
+        rgba(255,215,0,0.3) 50%,
+        rgba(255,215,0,0) 100%);
+    border-radius: 15px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card.drawn::before {
+    opacity: 1;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.05); opacity: 0.6; }
+} 
+
+/* 問題建議樣式 */
+.question-suggestions {
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+}
+
+.question-suggestions p {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.suggestion-btn {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--text-color);
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 12px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.suggestion-btn:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+} 
+
+/* 廣告容器樣式優化 */
+.ad-container {
+    margin: 20px auto;
+    text-align: center;
+    min-height: 90px;  /* 預留廣告空間 */
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 響應式廣告容器 */
+@media (max-width: 768px) {
+    .ad-container {
+        min-height: 50px;
+    }
+}
+
+/* 側邊欄廣告 */
+.sidebar-ad {
+    position: sticky;
+    top: 20px;
+    width: 160px;
+    min-height: 600px;
+} 
+
+/* 廣告容器基本樣式 */
+.ad-container {
+    margin: 20px auto;
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* 頂部廣告 */
+.top-ad {
+    max-width: 728px;
+    min-height: 90px;
+    margin-bottom: 30px;
+}
+
+/* 結果區域上方廣告 */
+.result-top-ad {
+    max-width: 728px;
+    min-height: 90px;
+    margin: 30px auto;
+}
+
+/* 結果區域內嵌廣告 */
+.in-result-ad {
+    max-width: 728px;
+    min-height: 280px;
+    margin: 20px auto;
+}
+
+/* 側邊欄廣告 */
+.sidebar-ad {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 160px;
+    min-height: 600px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(5px);
+    border-radius: 8px;
+    display: none;
+}
+
+.sidebar-ad.left {
+    left: 20px;
+}
+
+.sidebar-ad.right {
+    right: 20px;
+}
+
+/* 響應式設計 */
+@media (min-width: 1400px) {
+    .sidebar-ad {
+        display: block;
+    }
+    
+    .main-content {
+        margin: 0 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .ad-container {
+        min-height: 50px;
+    }
+    
+    .top-ad,
+    .result-top-ad,
+    .in-result-ad {
+        max-width: 100%;
+    }
+}
+
+/* 廣告載入動畫 */
+@keyframes adFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ad-container ins {
+    animation: adFadeIn 0.5s ease-out forwards;
+} 

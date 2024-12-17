@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>線上塔羅牌占卜</title>
+    
+    <!-- 預加載關鍵資源 -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    <link rel="preload" href="CARD/225_78.jpg" as="image">
+    
+    <!-- 添加 meta 描述 -->
+    <meta name="description" content="免費線上塔羅牌占卜，提供單張、三張和凱爾特十字牌陣">
+    <meta name="keywords" content="塔羅牌,占卜,線上占卜,免費占卜">
+    
+    <!-- 添加 PWA 支援 -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+    
+    <!-- 樣式表 -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="main-content">
+        <h1>線上塔羅牌占卜</h1>
+
+        <div class="question-section">
+            <textarea placeholder="請在此輸入你想問的問題..."></textarea>
+            <button id="start-reading">開始占卜</button>
+            <!-- 其他按鈕會由 JavaScript 動態添加 -->
+        </div>
+
+        <!-- 牌陣展示區域 -->
+        <div id="card-deck"></div>
+
+        <!-- 結果顯示區域 -->
+        <div id="result" class="result"></div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // 註冊 Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker 註冊成功');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker 註冊失敗:', err);
+                    });
+            });
+        }
+    </script>
+</body>
+</html> 
